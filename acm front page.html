@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACM Tune</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts for custom font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    /* Body Styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #ecf0f1;
+      margin: 0;
+    }
+
+    /* Header Styling */
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img {
+      height: 50px; /* Adjust the logo size */
+    }
+
+    .toggle-btn {
+      background-color: #e74c3c;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .toggle-btn.hidden {
+      display: none;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      height: 100vh;
+      background-color: #1c1c1c;
+      color: #ecf0f1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      padding-top: 30px;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      transform: translateX(-250px);
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .sidebar a {
+      color: #bdc3c7;
+      text-decoration: none;
+      display: block;
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .sidebar .logo img {
+      width: 100%;
+      height: auto;
+      padding: 10px 0;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: url('https://via.placeholder.com/1600x900/333333/FFFFFF?text=') no-repeat center center/cover;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      background-size: cover;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-section h2 {
+      font-size: 5rem;
+      font-family: 'Pacifico', cursive;
+      margin-bottom: 20px;
+      animation: fadeIn 2s forwards;
+      letter-spacing: 3px;
+    }
+
+    .hero-section .sub-heading {
+      font-size: 2rem;
+      color: #e74c3c;
+      font-family: 'Roboto', sans-serif;
+      margin-top: 10px;
+      animation: fadeIn 3s forwards;
+      opacity: 0;
+      animation-delay: 1s;
+    }
+
+    .hero-section .cta-btn {
+      background-color: #e74c3c;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .hero-section .cta-btn:hover {
+      background-color: #c0392b;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Music Categories Section */
+    .categories-section {
+      background-color: #222;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .categories-section h3 {
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: #e74c3c;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .category-card {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .category-card:hover {
+      transform: scale(1.05);
+    }
+
+    .category-card h4 {
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .category-card p {
+      font-size: 1rem;
+    }
+
+    .category-card a {
+      text-decoration: none;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .toggle-btn.hidden {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <a href="acm front page.html">
+      <img src="Contact Us.png" alt="ACM Tune Logo">
+    </a>
+    <button class="toggle-btn" id="toggle-btn">☰</button>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <a href="acm front page.html">
+        <img src="Contact Us.png" alt="ACM Tune Logo">
+      </a>
+    </div>
+    <nav class="nav flex-column">
+      <a href="acm front page.html" class="nav-link">Home</a>
+      <a href="#playlists" class="nav-link">ACM All Tracks</a>
+      <a href="categories.html" class="nav-link">Categories</a>
+      <a href="radio.html" class="nav-link">Radio</a>
+      <a href="#playlists" class="nav-link">Playlists</a>
+      <a href="Contact Us.html" class="nav-link">Contact Us</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <h2>Welcome to ACM Tune</h2>
+      <div class="sub-heading">For all Music Lovers</div>
+      <a href="#categories" class="cta-btn">Start Exploring</a>
+    </div>
+    
+    <div class="article-section" style="background-color: #222; color: #ecf0f1; padding: 60px 20px;">
+  <h3 style="color: #e74c3c; text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Know More About ACM Tune</h3>
+  <p style="font-size: 1.0rem; line-height: 1.2; text-align: justify; max-width: 800px; margin: 0 auto;">
+   <p>"Find peace and calm in our soothing ambient music, carefully crafted to help you unwind and escape the stresses of everyday life. At ACM Tune, we believe that music has the power to heal and transform, and we're dedicated to creating a sanctuary for relaxation and self-discovery. Our music is designed to calm your mind and heart, and transport you to a world of serenity and tranquility. Whether you're struggling with anxiety, depression, or simply need a moment of relaxation, our music is here to help.</p>
+    
+<p>Our collection of ambient and relaxing tracks is carefully curated to provide a soothing and calming experience, perfect for meditation, yoga, or simply unwinding after a long day. From soothing piano melodies to calming nature sounds, our music is the perfect accompaniment to your relaxation journey. We're passionate about creating music that promotes relaxation, reduces stress and anxiety, and fosters a sense of calm and well-being.
+</p>
+<p>At ACM Tune, we're committed to providing high-quality music that resonates with our listeners. We believe that music has the power to bring people together, and we're dedicated to creating a community of like-minded individuals who share our passion for relaxation and self-discovery. Join us on this journey, and let the soothing sounds of ACM Tune calm your mind and heart. Explore our collection of ambient and relaxing tracks, and discover the peace and tranquility that awaits you."</p>
+
+<div class="article-section" style="background-color: #222; color: #ecf0f1; padding: 60px 20px;">
+  <h3 style="color: #e74c3c; text-align: center; font-size: 2.5rem; margin-bottom: 30px;">Escape to a World of Relaxation with ACM Tune</h3>
+<p>"Immerse yourself in the calming sounds of ACM Tune, where ambient music meets relaxation. Our carefully crafted soundscapes are designed to reduce stress and anxiety, and promote a sense of calm and well-being. From soothing piano melodies to calming nature sounds, our music is the perfect accompaniment to your relaxation journey.</p>
+
+<p>At ACM Tune, we're passionate about creating music that promotes relaxation and self-discovery. We believe that music has the power to heal and transform, and we're dedicated to creating a sanctuary for relaxation and calmness. Our music is designed to calm your mind and heart, and transport you to a world of serenity and tranquility.</p>
+
+<p>Whether you're looking to unwind after a long day, or seeking a deeper sense of relaxation and calmness, our music is here to help. Join us on this journey, and let the soothing sounds of ACM Tune calm your mind and heart. Explore our collection of ambient and relaxing tracks, and discover the peace and tranquility that awaits you. At ACM Tune, we're committed to providing high-quality music that resonates with our listeners, and we're dedicated to creating a community of like-minded individuals who share our passion for relaxation and self-discovery."
+</p>
+  </p>
+ 
+    <p>Our collection of ambient and relaxing tracks is carefully curated to provide a soothing and calming experience, perfect for meditation, yoga, or simply unwinding after a long day. From soothing piano melodies to calming nature sounds, our music is the perfect accompaniment to your relaxation journey. We're passionate about creating music that promotes relaxation, reduces stress and anxiety, and fosters a sense of calm and well-being.
+  </p>
+</div>
+
+
+    <!-- Categories Section -->
+    <div class="categories-section" id="categories">
+      <h3>Music Categories</h3>
+      <div class="category-grid">
+        <div class="category-card">
+          <h4>Night vibes</h4>
+          <p>Explore the latest Night vibes tunes.</p>
+          <a href="pop.html">Listen</a>
+        </div>
+        <div class="category-card">
+          <h4>Soft bass</h4>
+          <p>Discover your favorite Soft bass musics.</p>
+          <a href="rock.html">Listen</a>
+        </div>
+        <div class="category-card">
+          <h4>All tracks</h4>
+          <p>Relax with soothing All tracks musics.</p>
+          <a href="classical.html">Listen</a>
+        </div>
+        <div class="category-card">
+          <h4>8d sound music's</h4>
+          <p>Get into the groove of 8d sound tunes.</p>
+          <a href="hiphop.html">Listen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & Custom JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const mainContent = document.querySelector('.main-content');
+
+    // Toggle Sidebar visibility for Mobile View
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      mainContent.classList.toggle('shifted');
+      toggleBtn.classList.toggle('hidden');
+    });
+
+    // Close Sidebar if clicked outside
+    window.addEventListener('click', function (e) {
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('open');
+        mainContent.classList.remove('shifted');
+        toggleBtn.classList.remove('hidden');
+      }
+    });
+
+    // Prevent sidebar closing when clicking inside the sidebar
+    sidebar.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+  </script>
+</body>
+
+</html>
